@@ -1,0 +1,16 @@
+.home__container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 70%;
+    height: 80vh;
+}
+.home__title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.home__title > div {
+    display: flex;
+    column-gap: 20px;
+}
