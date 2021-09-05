@@ -3,7 +3,7 @@ import './EditPage.css'
 
 const EditPage = () => {
     return (
-        <div>
+        <div className='editPage__container' >
            <Edit/> 
         </div>
     )

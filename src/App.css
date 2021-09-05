@@ -1,6 +1,6 @@
 .App {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background-image: linear-gradient(
     165deg,
     #e0e3f0 65%,
