@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import db, { auth } from "../../firebase";
+import { AuthContext } from "../../store/userContext";
 import "./Signup.css";
 const Signup = () => {
+  const { user } = useContext(AuthContext)
   const history = useHistory();
   const [err, setErr] = useState(null);
   const [personal, setPersonal] = useState(false);
@@ -39,12 +41,10 @@ const Signup = () => {
     setCompany(true);
   };
   const handleSubmit = () => {
-    console.log("handlesubmit ran");
     auth
       .createUserWithEmailAndPassword(`${data.username}@mail.com`, password)
       .then((result) => {
         result.user.updateProfile({ displayName: data.username }).then(() => {
-          console.log(result.user.uid);
           db.doc(`/users/${result.user.uid}`)
             .set({
               id: result.user.uid,
@@ -73,7 +73,6 @@ const Signup = () => {
               if (data.companyname) {
                 if (data.companydetails) {
                   handleSubmit();
-                  console.log("validated");
                 } else {
                   setError({
                     ...error,
@@ -128,6 +127,14 @@ const Signup = () => {
       setPersonal(true);
     }
   };
+  useEffect(() => {
+    if (user) {
+      history.push('/')
+    }
+    return () => {
+      
+    }
+  }, [user])
 
   return (
     <div className="signup__container">

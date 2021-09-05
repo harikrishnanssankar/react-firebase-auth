@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { auth } from '../../firebase';
+import { AuthContext } from '../../store/userContext';
 import './Login.css'
 const Login = () => {
   const history = useHistory()
   const [err, setErr] = useState(null);
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const { user } = useContext(AuthContext)
 
 
 
@@ -14,7 +16,7 @@ const Login = () => {
     auth.signInWithEmailAndPassword(
       `${username}@mail.com`,
       password
-    ).then(() => {
+    ).then((authuser) => {
       alert('login Successful')
       history.push('/')
     }
@@ -22,6 +24,14 @@ const Login = () => {
       setErr(error.message)
     })
   }
+  useEffect(() => {
+    if (user) {
+      history.push('/')
+    }
+    return () => {
+      
+    }
+  }, [user])
   
   return (
     <div className="login__container" >

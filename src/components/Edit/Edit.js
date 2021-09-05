@@ -38,11 +38,8 @@ const Edit = () => {
       .then(alert('profile updated'));
   };
   const handleUpdatePassword = () => {
-    console.log('ran');
     if (password.length >= 6) {
-      console.log('greater');
       if (password2 === password) {
-        console.log('equals');
         auth.currentUser.updatePassword(password).then(res => {
           alert('password updated')
         }).catch(err => alert(err.message))
